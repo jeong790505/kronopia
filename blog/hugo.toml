@@ -1,0 +1,61 @@
+baseURL = 'https://example.com/'
+languageCode = 'ko-kr'
+defaultContentLanguage = 'ko'
+title = 'signalloop'
+theme = 'PaperMod'
+
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+pagination.pagerSize = 10
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[params]
+  env = 'production'
+  description = "개인 블로그 (임시 설명 — 추후 변경)"
+  author = "jeong"
+  defaultTheme = 'auto'
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+
+  [params.homeInfoParams]
+    Title = "signalloop"
+    Content = "주제별 글, 실험, 그리고 자료방. (임시 카피)"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/jeong790505"
+
+[menu]
+  [[menu.main]]
+    identifier = "categories"
+    name = "카테고리"
+    url = "/categories/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "태그"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "search"
+    name = "검색"
+    url = "/search/"
+    weight = 30
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

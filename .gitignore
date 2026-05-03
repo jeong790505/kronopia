@@ -1,0 +1,28 @@
+# macOS
+.DS_Store
+
+# Hugo
+blog/public/
+blog/resources/_gen/
+blog/.hugo_build.lock
+
+# Next.js
+app/node_modules/
+app/.next/
+app/out/
+app/build/
+app/.vercel/
+app/.env*.local
+app/next-env.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+
+# Env
+.env
+.env.local
