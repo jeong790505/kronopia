@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import GoogleSignInButton from "./GoogleSignInButton"
+import NaverSignInButton from "./NaverSignInButton"
 
 export default async function LoginPage() {
   const session = await auth()
@@ -19,7 +20,10 @@ export default async function LoginPage() {
             계속하려면 로그인하세요
           </p>
         </div>
-        <GoogleSignInButton />
+        <div className="flex flex-col gap-3">
+          <GoogleSignInButton />
+          <NaverSignInButton />
+        </div>
       </div>
     </div>
   )
