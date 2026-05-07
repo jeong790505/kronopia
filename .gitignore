@@ -26,3 +26,6 @@ npm-debug.log*
 # Env
 .env
 .env.local
+
+# Local audit trail (Stop hook output) — never commit, may contain prompts/responses
+.signalloop-runs/
