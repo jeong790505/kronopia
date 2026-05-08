@@ -14,7 +14,11 @@ export default function BlogFeed({ posts }: Props) {
         <ul className="flex flex-col gap-4">
           {posts.map((post) => (
             <li key={post.permalink}>
-              <a href={post.permalink} className="block group">
+              <a
+                href={post.permalink}
+                rel="noreferrer noopener"
+                className="block group"
+              >
                 <h3 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
                   {post.title}
                 </h3>
