@@ -1,5 +1,9 @@
 import Image from "next/image"
 import SignOutButton from "../SignOutButton"
+import EditableName from "./EditableName"
+
+type ActionResult = { error?: string }
+type Action = (formData: FormData) => Promise<ActionResult>
 
 type Props = {
   name: string | null
@@ -7,6 +11,7 @@ type Props = {
   avatarUrl: string | null
   provider: string
   createdAt: string | null
+  updateNicknameAction: Action
 }
 
 const PROVIDER_BADGE: Record<string, { label: string; bg: string }> = {
@@ -14,7 +19,7 @@ const PROVIDER_BADGE: Record<string, { label: string; bg: string }> = {
   naver: { label: "Naver", bg: "bg-[#03C75A]" },
 }
 
-export default function ProfileCard({ name, email, avatarUrl, provider, createdAt }: Props) {
+export default function ProfileCard({ name, email, avatarUrl, provider, createdAt, updateNicknameAction }: Props) {
   const initial = name?.[0]?.toUpperCase() ?? email?.[0]?.toUpperCase() ?? "?"
   const badge = PROVIDER_BADGE[provider] ?? { label: provider, bg: "bg-gray-500" }
   const joinDate = createdAt ? createdAt.slice(0, 10) : null
@@ -36,9 +41,7 @@ export default function ProfileCard({ name, email, avatarUrl, provider, createdA
       )}
       <div className="flex-1 flex flex-col items-center sm:items-start gap-1.5">
         <div className="flex items-center gap-2 flex-wrap justify-center sm:justify-start">
-          <h2 className="text-lg font-semibold text-gray-900">
-            {name ?? "이름 없음"}
-          </h2>
+          <EditableName initialName={name} action={updateNicknameAction} />
           <span
             className={`text-xs font-medium text-white rounded-full px-2 py-0.5 ${badge.bg}`}
           >

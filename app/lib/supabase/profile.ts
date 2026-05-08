@@ -27,8 +27,9 @@ export async function getProfile(email: string): Promise<Profile | null> {
 }
 
 /**
- * 프로필 upsert (email 충돌 시 update).
- * 삽입/갱신된 행을 반환. 실패 시 throw.
+ * 프로필 upsert. 신규 행은 OAuth provider name을 사용하지만, 기존 행은
+ * name 컬럼을 보존(사용자가 편집한 닉네임을 매 로그인마다 덮어쓰지 않음).
+ * 실패 시 throw.
  */
 export async function upsertProfile(input: {
   email: string
@@ -37,21 +38,57 @@ export async function upsertProfile(input: {
   provider: string
 }): Promise<Profile> {
   const supabase = getAdminClient()
-  const { data, error } = await supabase
+
+  const { data: existing, error: selectErr } = await supabase
     .from("profiles")
-    .upsert(
-      {
-        email: input.email,
-        name: input.name ?? null,
+    .select("id")
+    .eq("email", input.email)
+    .maybeSingle()
+  if (selectErr) throw new Error(`upsertProfile select failed: ${selectErr.message}`)
+
+  if (existing) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({
         avatar_url: input.avatar_url ?? null,
         provider: input.provider,
         updated_at: new Date().toISOString(),
-      },
-      { onConflict: "email" }
-    )
+      })
+      .eq("email", input.email)
+      .select()
+      .single()
+    if (error) throw new Error(`upsertProfile update failed: ${error.message}`)
+    return data as Profile
+  }
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .insert({
+      email: input.email,
+      name: input.name ?? null,
+      avatar_url: input.avatar_url ?? null,
+      provider: input.provider,
+    })
     .select()
     .single()
+  if (error) throw new Error(`upsertProfile insert failed: ${error.message}`)
+  return data as Profile
+}
 
-  if (error) throw new Error(`upsertProfile failed: ${error.message}`)
+/**
+ * 사용자 닉네임 갱신. 실패 시 throw.
+ */
+export async function updateProfileName(email: string, name: string): Promise<Profile> {
+  const supabase = getAdminClient()
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({
+      name,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("email", email)
+    .select()
+    .single()
+  if (error) throw new Error(`updateProfileName failed: ${error.message}`)
   return data as Profile
 }

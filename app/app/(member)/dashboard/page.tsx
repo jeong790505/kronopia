@@ -5,6 +5,7 @@ import { fetchRecentPosts } from "@/lib/blog"
 import ProfileCard from "./components/ProfileCard"
 import BlogFeed from "./components/BlogFeed"
 import PlaceholderCard from "./components/PlaceholderCard"
+import { updateNickname } from "./actions"
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -40,6 +41,7 @@ export default async function DashboardPage() {
               avatarUrl={avatarUrl}
               provider={provider}
               createdAt={createdAt}
+              updateNicknameAction={updateNickname}
             />
           </div>
           <div className="col-span-full">
