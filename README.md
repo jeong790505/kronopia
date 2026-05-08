@@ -90,7 +90,7 @@ gitignore 처리됨 (public repo로 대화 노출 방지). 원본 raw는 `~/.cla
 - [ ] Phase 2: 소셜 로그인 + 회원 영역
   - [x] 2.1 Google OAuth + Supabase 프로필 영속화
   - [x] 2.2 Naver OAuth
-  - [ ] 2.3 회원 home 레이아웃 (구성 C — 프로필 / 블로그 피드 / Phase 3 슬롯)
-  - [ ] 2.4 로그인 에러 UI + 프로필 편집
+  - [x] 2.3 회원 home 레이아웃 (구성 C — 프로필 / 블로그 피드 / Phase 3 슬롯)
+  - [x] 2.4 로그인 에러 UI + 닉네임 편집 (+ signIn upsert 회귀 fix)
   - [ ] 2.5 앱 도메인 연결 (Vercel custom domain)
 - [ ] Phase 3: 결제 + 자료방 + 서비스 마켓플레이스
