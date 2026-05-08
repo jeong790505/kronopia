@@ -1,8 +1,10 @@
 import { auth } from "@/lib/auth"
 import { getProfile } from "@/lib/supabase/profile"
 import { redirect } from "next/navigation"
-import Image from "next/image"
-import SignOutButton from "./SignOutButton"
+import { fetchRecentPosts } from "@/lib/blog"
+import ProfileCard from "./components/ProfileCard"
+import BlogFeed from "./components/BlogFeed"
+import PlaceholderCard from "./components/PlaceholderCard"
 
 export default async function DashboardPage() {
   const session = await auth()
@@ -10,7 +12,6 @@ export default async function DashboardPage() {
     redirect("/login")
   }
 
-  // DB 값 우선, 없으면 session fallback
   let profile = null
   if (session.user?.email) {
     try {
@@ -20,34 +21,48 @@ export default async function DashboardPage() {
     }
   }
 
-  const name = profile?.name ?? session.user?.name
-  const email = profile?.email ?? session.user?.email
-  const avatarUrl = profile?.avatar_url ?? session.user?.image
-  const initial = name?.[0]?.toUpperCase() ?? email?.[0]?.toUpperCase() ?? "?"
+  const name = profile?.name ?? session.user?.name ?? null
+  const email = profile?.email ?? session.user?.email ?? null
+  const avatarUrl = profile?.avatar_url ?? session.user?.image ?? null
+  const provider = profile?.provider ?? "unknown"
+  const createdAt = profile?.created_at ?? null
+
+  const posts = await fetchRecentPosts(5)
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-md px-8 py-10">
-        <div className="flex flex-col items-center gap-4">
-          {avatarUrl ? (
-            <Image
-              src={avatarUrl}
-              alt={name ?? "사용자 아바타"}
-              width={72}
-              height={72}
-              className="rounded-full ring-2 ring-gray-100"
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="col-span-full">
+            <ProfileCard
+              name={name}
+              email={email}
+              avatarUrl={avatarUrl}
+              provider={provider}
+              createdAt={createdAt}
             />
-          ) : (
-            <div className="w-18 h-18 flex items-center justify-center rounded-full bg-gray-200 text-2xl font-bold text-gray-600 ring-2 ring-gray-100">
-              {initial}
-            </div>
-          )}
-          <div className="text-center">
-            <p className="text-lg font-semibold text-gray-900">{name ?? "이름 없음"}</p>
-            <p className="text-sm text-gray-500">{email}</p>
           </div>
+          <div className="col-span-full">
+            <BlogFeed posts={posts} />
+          </div>
+          <div className="col-span-full">
+            <PlaceholderCard
+              title="자료방"
+              description="유료·회원 전용 자료가 들어갈 자리입니다."
+              comingSoon
+            />
+          </div>
+          <PlaceholderCard
+            title="주문"
+            description="진행 중인 주문과 견적이 표시됩니다."
+            comingSoon
+          />
+          <PlaceholderCard
+            title="메시지"
+            description="구매·의뢰 관련 대화가 모입니다."
+            comingSoon
+          />
         </div>
-        <SignOutButton />
       </div>
     </div>
   )
