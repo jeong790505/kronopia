@@ -1,4 +1,4 @@
-# signalloop
+# Kronopia
 
 개인 홈페이지 모노레포. 정적 블로그(Hugo) + 동적 앱(Next.js) 하이브리드 구조.
 
