@@ -60,6 +60,8 @@ export default function EditableName({ initialName, action }: Props) {
           maxLength={30}
           autoFocus
           disabled={pending}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? "nickname-error" : undefined}
           className="rounded border border-gray-300 px-2 py-1 text-sm focus:border-blue-500 focus:outline-none disabled:bg-gray-50"
         />
         <button
@@ -81,7 +83,11 @@ export default function EditableName({ initialName, action }: Props) {
           취소
         </button>
       </div>
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && (
+        <p id="nickname-error" className="text-xs text-red-600">
+          {error}
+        </p>
+      )}
     </form>
   )
 }

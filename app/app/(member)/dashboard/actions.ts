@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth"
 import { updateProfileName } from "@/lib/supabase/profile"
 import { revalidatePath } from "next/cache"
 
-const NAME_REGEX = /^[가-힣a-zA-Z0-9\s]+$/
+const NAME_REGEX = /^[가-힣a-zA-Z0-9 ]+$/
 const MAX_LEN = 30
 
 export async function updateNickname(formData: FormData): Promise<{ error?: string }> {

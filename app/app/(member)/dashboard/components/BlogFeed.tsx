@@ -16,6 +16,7 @@ export default function BlogFeed({ posts }: Props) {
             <li key={post.permalink}>
               <a
                 href={post.permalink}
+                target="_blank"
                 rel="noreferrer noopener"
                 className="block group"
               >
