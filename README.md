@@ -1,13 +1,26 @@
 # Kronopia
 
-개인 홈페이지 모노레포. 정적 블로그(Hugo) + 동적 앱(Next.js) 하이브리드 구조.
+5-버티컬 컨텐츠 포트폴리오 + 공통 회원 영역. 각 버티컬은 독립 서브도메인 + 독립 자동발행 파이프라인.
 
-## 구조
+## 버티컬 맵
+
+| 버티컬 | 도메인 | 콘텐츠 | 상태 |
+|---|---|---|---|
+| SAP | `kronopia.com` (Blogger 커스텀) | 수동 | 라이브 (AdSense) |
+| 도시역사 | `history.kronopia.com` | 자동 + 승인 | 인프라 ✓, 파이프라인 구축 중 |
+| AI지식 | `ai.kronopia.com` (예정) | 자동 + 승인 | 계획 |
+| IT기기 | `tech.kronopia.com` (예정) | 자동 + 승인 | 계획 |
+| 복리 | `fire.kronopia.com` (예정) | 자동 + 승인 | 계획 |
+| 회원 영역 | `app.kronopia.com` | Next.js | 인프라 ✓, custom domain 미연결 |
+
+## 모노레포 구조
 
 ```
-blog/    Hugo + PaperMod, GitHub Pages 배포 (메인 도메인)
-app/     Next.js + TS + Tailwind, Vercel 배포 (app.<도메인>)
+blog/    Hugo (현재 history.kronopia.com 서빙) + PaperMod
+app/     Next.js + TS + Tailwind, Vercel 배포 (app.kronopia.com 예정)
 ```
+
+향후 vertical 추가 시 `ai/`, `tech/`, `fire/` 폴더가 형제로 들어옴 (각자 hugo.toml + 별도 GH workflow).
 
 ## 로컬 개발
 
@@ -86,11 +99,16 @@ gitignore 처리됨 (public repo로 대화 노출 방지). 원본 raw는 `~/.cla
 전체 계획은 `~/.claude/plans/typed-yawning-noodle.md` 참고.
 
 - [x] Phase 0: 스캐폴딩
-- [ ] Phase 1: 도메인 연결 + Blogger 선별 이전 + 자동화 연동
+- [ ] Phase 1: 버티컬 인프라 + 콘텐츠 파이프라인
+  - [x] 1.1 도메인 + DNS (kronopia.com 구매, Blogger 커스텀 도메인 root에)
+  - [x] 1.2 도시역사 버티컬 라이브 (history.kronopia.com, HTTPS)
+  - [ ] 1.3 자동발행 파이프라인 (도시역사용) — 사용자 별 트랙
+  - [ ] 1.4 향후 버티컬 (AI지식 / IT기기 / 복리) — 도시역사 안정화 후
+  - [~] 1.5 Blogger 선별 이전 — 폐기 (Blogger는 SAP 버티컬로 유지)
 - [ ] Phase 2: 소셜 로그인 + 회원 영역
   - [x] 2.1 Google OAuth + Supabase 프로필 영속화
   - [x] 2.2 Naver OAuth
   - [x] 2.3 회원 home 레이아웃 (구성 C — 프로필 / 블로그 피드 / Phase 3 슬롯)
   - [x] 2.4 로그인 에러 UI + 닉네임 편집 (+ signIn upsert 회귀 fix)
-  - [ ] 2.5 앱 도메인 연결 (Vercel custom domain)
+  - [~] 2.5 앱 도메인 연결 — 2.5a (BLOG_FEED_URL) ✓, 2.5b (Vercel custom domain) 보류
 - [ ] Phase 3: 결제 + 자료방 + 서비스 마켓플레이스
