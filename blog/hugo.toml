@@ -1,7 +1,7 @@
 baseURL = 'https://example.com/'
 languageCode = 'ko-kr'
 defaultContentLanguage = 'ko'
-title = 'kronopia'
+title = 'Kronopia'
 theme = 'PaperMod'
 
 enableRobotsTXT = true
@@ -33,7 +33,7 @@ pagination.pagerSize = 10
   TocOpen = false
 
   [params.homeInfoParams]
-    Title = "kronopia"
+    Title = "Kronopia"
     Content = "주제별 글, 실험, 그리고 자료방. (임시 카피)"
 
   [[params.socialIcons]]

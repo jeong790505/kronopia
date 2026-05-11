@@ -19,7 +19,7 @@ export default async function LoginPage() {
         </Suspense>
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">
-            kronopia
+            Kronopia
           </h1>
           <p className="mt-2 text-sm text-gray-500">
             계속하려면 로그인하세요
