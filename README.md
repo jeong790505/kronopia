@@ -38,9 +38,9 @@ cd app && npm run dev
 
 | Teammate | 모델 | 도구 권한 | 핵심 제약 |
 |---|---|---|---|
-| `signalloop-planner` | Sonnet | Read/Grep/Glob/WebFetch (코드 수정 ❌) | 사용자 요청 외 작업 계획에 끼지 않음 |
-| `signalloop-coder` | Sonnet + Ollama | Read/Write/Edit/Bash + ollama_generate (외부 검색 ❌) | task 외 파일 수정 금지, 항상 plan-first |
-| `signalloop-reviewer` | Opus | Read/Grep/Glob/Bash(read-only) | diff 밖 코드 BLOCKER로 평가 금지 |
+| `kronopia-planner` | Sonnet | Read/Grep/Glob/WebFetch (코드 수정 ❌) | 사용자 요청 외 작업 계획에 끼지 않음 |
+| `kronopia-coder` | Sonnet + Ollama | Read/Write/Edit/Bash + ollama_generate (외부 검색 ❌) | task 외 파일 수정 금지, 항상 plan-first |
+| `kronopia-reviewer` | Opus | Read/Grep/Glob/Bash(read-only) | diff 밖 코드 BLOCKER로 평가 금지 |
 
 `~/.claude/settings.json`의 `permissions.deny`에 위험 명령 26종 차단:
 `rm -rf`, `git push --force`, `git reset --hard`, `--no-verify`, `.env*` 직접 수정, `node_modules/` 직접 수정 등.
@@ -50,7 +50,7 @@ cd app && npm run dev
 코드 변경이 들어가는 작업은 항상 **plan-approval 명시**:
 
 ```
-signalloop-planner와 signalloop-coder, signalloop-reviewer를 spawn해.
+kronopia-planner와 kronopia-coder, kronopia-reviewer를 spawn해.
 코더는 plan approval required로 — 코드 수정 전 반드시 계획을 lead에게 제출하고 
 승인받아야 시작.
 
@@ -60,21 +60,21 @@ signalloop-planner와 signalloop-coder, signalloop-reviewer를 spawn해.
 분석·검토만 필요하면 코더 없이:
 
 ```
-signalloop-planner와 signalloop-reviewer만 spawn해. 코드 변경 없음.
+kronopia-planner와 kronopia-reviewer만 spawn해. 코드 변경 없음.
 작업: <분석/검토 작업>
 ```
 
-### 작업 감사 로그 (`.signalloop-runs/`)
+### 작업 감사 로그 (`.kronopia-runs/`)
 
-`~/.claude/hooks/signalloop-stop.py` Stop 훅이 매 턴 종료 시 자동 누적:
+`~/.claude/hooks/kronopia-stop.py` Stop 훅이 매 턴 종료 시 자동 누적:
 
 ```
-.signalloop-runs/
+.kronopia-runs/
 └── YYYY-MM-DD/
     ├── lead-<team>.md
-    ├── signalloop-planner.md
-    ├── signalloop-coder.md
-    ├── signalloop-reviewer.md
+    ├── kronopia-planner.md
+    ├── kronopia-coder.md
+    ├── kronopia-reviewer.md
     └── solo-<sid8>.md       # 팀 없이 단독 세션일 때
 ```
 

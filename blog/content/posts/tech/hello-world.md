@@ -1,5 +1,5 @@
 ---
-title: "첫 글: signalloop을 시작하며"
+title: "첫 글: kronopia을 시작하며"
 date: 2026-05-04
 draft: false
 categories: ["tech"]
