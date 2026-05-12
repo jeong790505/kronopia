@@ -6,7 +6,7 @@
 
 | 버티컬 | 도메인 | 콘텐츠 | 상태 |
 |---|---|---|---|
-| SAP | `kronopia.com` (Blogger 커스텀) | 수동 | 라이브 (AdSense) |
+| SAP | Blogger 기본 URL (`*.blogspot.com`) | 수동 | 라이브, 자체 AdSense. kronopia.com 커스텀 연결 해제 (2026-05-12) |
 | 도시역사 | `history.kronopia.com` | 자동 + 승인 | 인프라 ✓, 파이프라인 구축 중 |
 | AI지식 | `ai.kronopia.com` (예정) | 자동 + 승인 | 계획 |
 | IT기기 | `tech.kronopia.com` (예정) | 자동 + 승인 | 계획 |

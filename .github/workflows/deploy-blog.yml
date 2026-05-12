@@ -41,10 +41,10 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
           TZ: Asia/Seoul
+        # baseURL은 blog/hugo.toml의 단일 출처 (https://history.kronopia.com/) 사용.
+        # GH Pages 설정 변경에 흔들리지 않도록 --baseURL 인자 제거.
         run: |
-          hugo \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+          hugo --minify
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
