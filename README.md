@@ -6,8 +6,8 @@
 
 | 버티컬 | 도메인 | 콘텐츠 | 상태 |
 |---|---|---|---|
-| SAP | Blogger 기본 URL (`*.blogspot.com`) | 수동 | 라이브, 자체 AdSense. kronopia.com 커스텀 연결 해제 (2026-05-12) |
-| 도시역사 | `kronopia.com` (apex 직접 서빙, 2026-05-12) | 자동 + 승인 | 라이브, AdSense 승인 대기. 파이프라인 구축 중. `history.kronopia.com`은 미사용·예약 |
+| SAP | `kronopia.com` (apex, Blogger 커스텀 연결 — 2026-05-12 재연결) | 수동 (signalloop.blogspot.com) | 라이브, AdSense 본진 (Pub `pub-3356024734687672`, 검증 진행 중) |
+| 도시역사 | `history.kronopia.com` (Hugo + GitHub Pages) | 자동 + 승인 | 라이브, 파이프라인 구축 중 |
 | AI지식 | `ai.kronopia.com` (예정) | 자동 + 승인 | 계획 |
 | IT기기 | `tech.kronopia.com` (예정) | 자동 + 승인 | 계획 |
 | 복리 | `fire.kronopia.com` (예정) | 자동 + 승인 | 계획 |
@@ -16,7 +16,7 @@
 ## 모노레포 구조
 
 ```
-blog/    Hugo (현재 kronopia.com apex 직접 서빙, AdSense 본진) + PaperMod
+blog/    Hugo (history.kronopia.com 서빙) + PaperMod
 app/     Next.js + TS + Tailwind, Vercel 배포 (app.kronopia.com 예정)
 ```
 
@@ -101,7 +101,8 @@ gitignore 처리됨 (public repo로 대화 노출 방지). 원본 raw는 `~/.cla
 - [x] Phase 0: 스캐폴딩
 - [ ] Phase 1: 버티컬 인프라 + 콘텐츠 파이프라인
   - [x] 1.1 도메인 + DNS (kronopia.com 구매, Cloudflare DNS 관리)
-  - [x] 1.2 도시역사 버티컬 라이브 (kronopia.com apex 직접 서빙, HTTPS, ads.txt Worker)
+  - [x] 1.2 도시역사 버티컬 라이브 (history.kronopia.com, GitHub Pages, HTTPS)
+  - [x] 1.2b SAP Blogger를 kronopia.com (apex)에 재연결, AdSense 검증 (2026-05-12 최종)
   - [ ] 1.3 자동발행 파이프라인 (도시역사용) — 사용자 별 트랙
   - [ ] 1.4 향후 버티컬 (AI지식 / IT기기 / 복리) — 도시역사 안정화 후
   - [~] 1.5 Blogger 선별 이전 — 폐기 (Blogger는 SAP 버티컬로 유지)
